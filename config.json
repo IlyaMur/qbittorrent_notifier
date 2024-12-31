@@ -1,0 +1,12 @@
+{
+    "qbittorrent": {
+        "url": "127.0.0.1:8080",
+        "username": "username",
+        "password": "password"
+    },
+    "telegram": {
+        "token": "",
+        "chat_id": ""
+    },
+    "check_interval_seconds": 30
+}
