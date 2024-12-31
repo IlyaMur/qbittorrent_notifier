@@ -27,4 +27,9 @@ go build -o qbnotifier ./cmd/qbnotifier
 
 ### 3. Настройка
 
-В файле config.json указать URL и порт хоста с qbittorrent, а так же креды для доступа и токен с chat_id для бота в телеграме.
+В файле config.json указать:
+
+- URL и порт хоста с qbittorrent.
+- username/password для доступа к админке qbittorrent.
+- token и chat_id для бота в телеграме.
+- check_interval_seconds - интервал обновлений (qbittorrent не поддерживает вебсокеты)
