@@ -1,3 +1,5 @@
+![Tests](https://github.com/ilyamur/qbittorrent_notifier/actions/workflows/ci.yml/badge.svg)
+
 # qBittorrent Notifier Bot
 
 qBittorrent Notifier Bot — это легковесный бот для отправки уведомлений о статусах загрузок в qBittorrent через Telegram.  
@@ -19,8 +21,8 @@ qBittorrent Notifier Bot — это легковесный бот для отп�
 
 ### 2. Сборка
 ```bash
-git clone https://github.com/ilyamur/qbittorrent_nofier.git
-cd qbittorrent_nofier
+git clone https://github.com/ilyamur/qbittorrent_notifier.git
+cd qbittorrent_notifier
 make build
 ./notifier_bot
 ```
@@ -61,11 +63,17 @@ make build
 
 ```bash
 2025/01/01 09:16:11 Новая закачка: ubuntu_pack-22.04-xfce-amd64.iso начала загрузку.
-2025/01/01 09:32:51 Проверка статуса загрузок...
 ...
 2025/01/01 09:33:21 Проверка статуса загрузок...
 2025/01/01 09:33:21 Загрузка торрента ubuntu_pack-22.04-xfce-amd64.iso завершена
 ```
 
 Нотификация в telegram: 
-![Нотификация в telegram:](docs/tg_notification_example.png)
+![Нотификация в telegram:](docs/tg_notification.png)
+
+
+## Запуск тестов
+
+```bash
+make test
+```

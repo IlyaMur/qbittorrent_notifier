@@ -9,4 +9,7 @@ run:
 clean:
 	@rm -f $(APP_NAME)
 
-.PHONY: build run clean
+test:
+	@go test -v ./...
+
+.PHONY: build run clean test
