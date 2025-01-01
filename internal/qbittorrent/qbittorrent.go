@@ -88,16 +88,22 @@ func MonitorDownloads(client *Client, notifier notifier.Notifier, interval int) 
 			} else {
 				if prevTorrent, exists := downloadingTorrents[torrent.Hash]; exists {
 					if prevTorrent.State == "downloading" && torrent.State != "downloading" {
-						if torrent.State == "stalledUP" {
-							log.Printf("Загрузка торрента %s завершена, новый статус: %s", torrent.Name, torrent.State)
-							message := fmt.Sprintf(
-								"*Загрузка торрента* `%s` *завершена!*",
+						var message string
+
+						if torrent.State == "uploading" || torrent.State == "stalledUP" {
+							log.Printf("Загрузка торрента %s завершена", torrent.Name)
+							message = fmt.Sprintf(
+								"*Загрузка торрента* `%s` *завершена*",
 								escapeMarkdownV2(torrent.Name),
 							)
+						}
+
+						if message != "" {
 							if err := notifier.SendNotification(message); err != nil {
 								log.Printf("Ошибка при отправке уведомления: %v", err)
 							}
 						}
+
 						delete(downloadingTorrents, torrent.Hash)
 					}
 				}
