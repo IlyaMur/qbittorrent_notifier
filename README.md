@@ -1,6 +1,7 @@
 # qBittorrent Notifier Bot
 
-qBittorrent Notifier Bot — это простой и удобный бот для отправки уведомлений о статусах загрузок в qBittorrent через Telegram.
+qBittorrent Notifier Bot — это легковесный бот для отправки уведомлений о статусах загрузок в qBittorrent через Telegram.  
+Бот выполнен для собственных нужд и написан без сторонних зависимостей.
 
 ## Возможности
 
@@ -8,7 +9,6 @@ qBittorrent Notifier Bot — это простой и удобный бот дл
 - Уведомления о завершении загрузок.
 - Простая настройка через JSON-файл.
 
----
 
 ## Как собрать и запустить
 
@@ -18,18 +18,54 @@ qBittorrent Notifier Bot — это простой и удобный бот дл
 - Установленный и настроенный qBittorrent с включенным API (Web UI).
 
 ### 2. Сборка
-Склонируйте проект:
 ```bash
 git clone https://github.com/ilyamur/qbittorrent_nofier.git
 cd qbittorrent_nofier
-go build -o qbnotifier ./cmd/qbnotifier
+make build
+./notifier_bot
 ```
 
 ### 3. Настройка
 
-В файле config.json указать:
+Создайте файл `config.json` в той же директории, где будет находиться бинарник бота.  
+Структура:
 
-- URL и порт хоста с qbittorrent.
-- username/password для доступа к админке qbittorrent.
-- token и chat_id для бота в телеграме.
-- check_interval_seconds - интервал обновлений (qbittorrent не поддерживает вебсокеты)
+```json
+{
+    "qbittorrent": {
+        "url": "http://<IP_АДРЕС>:<ПОРТ>",
+        "username": "<ЛОГИН>",
+        "password": "<ПАРОЛЬ>"
+    },
+    "telegram": {
+        "token": "<ТЕЛЕГРАМ_ТОКЕН>",
+        "chat_id": "<CHAT_ID>"
+    },
+    "check_interval_seconds": 20
+}
+```
+
+В файле `config.json` необходимо указать следующие параметры:
+
+| Параметр                 | Описание                                                                                     |
+|--------------------------|---------------------------------------------------------------------------------------------|
+| **url**                 | URL и порт хоста с qBittorrent.                                                              |
+| **username/password**   | Логин и пароль для доступа к админке qBittorrent.                                            |
+| **token**               | Токен для бота в Telegram.                                                                   |
+| **chat_id**             | Идентификатор чата, куда бот будет отправлять уведомления.                                    |
+| **check_interval_seconds** | Интервал (в секундах), с которым бот будет проверять обновления (qBittorrent не поддерживает веб-сокеты). |
+
+## Пример работы
+
+Вывод в stdout:
+
+```bash
+2025/01/01 09:16:11 Новая закачка: ubuntu_pack-22.04-xfce-amd64.iso начала загрузку.
+2025/01/01 09:32:51 Проверка статуса загрузок...
+...
+2025/01/01 09:33:21 Проверка статуса загрузок...
+2025/01/01 09:33:21 Загрузка торрента ubuntu_pack-22.04-xfce-amd64.iso завершена
+```
+
+Нотификация в telegram: 
+![Нотификация в telegram:](docs/tg_notification_example.png)
